@@ -1,0 +1,224 @@
+.categories-container {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    max-height: 600px;
+    background: rgba(15, 15, 15, 0.7);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    isolation: isolate;
+}
+
+/* Subtle dark glow behind */
+.categories-container::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.01));
+    z-index: -1;
+    filter: blur(2px);
+}
+
+.categories-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-right: 0.5rem;
+}
+
+/* Dark Custom Scrollbar */
+.categories-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.categories-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.categories-list::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 4px;
+}
+
+.categories-list::-webkit-scrollbar-thumb:hover {
+    background: #555555;
+}
+
+.category-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    background: rgba(30, 30, 30, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    transition: all 0.2s ease-out;
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 0.5s ease backwards;
+}
+
+.category-item:hover {
+    background: rgba(45, 45, 45, 0.6);
+    transform: translateY(-1px);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.category-item::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.category-item:hover::after {
+    width: 400px;
+    height: 400px;
+}
+
+.category-item>* {
+    position: relative;
+    z-index: 1;
+}
+
+.category-id {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: #1a1a1a;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    /* Square with rounded corners looks better in dark themes */
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #888888;
+}
+
+.category-name {
+    flex: 1;
+    margin: 0 1.25rem;
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: #dddddd;
+}
+
+.category-button {
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+.delete {
+    color: #f87171;
+}
+
+.update {
+    color: #34d399;
+
+}
+
+.category-type {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    background: #1a1a1a;
+    color: #888888;
+    border: 1px solid #2a2a2a;
+}
+
+.category-type[data-type*="receita" i] {
+    color: #34d399;
+    border-color: rgba(52, 211, 153, 0.2);
+    background: rgba(52, 211, 153, 0.05);
+}
+
+.category-type[data-type*="despesa" i] {
+    color: #f87171;
+    border-color: rgba(248, 113, 113, 0.2);
+    background: rgba(248, 113, 113, 0.05);
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Specific Transaction Overrides & Responsiveness */
+.transaction-item {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.transaction-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 150px;
+    margin: 0 1rem;
+}
+
+.transaction-title {
+    margin: 0 !important;
+}
+
+.transaction-subtitle {
+    font-size: 0.8rem;
+    color: #888888;
+    margin-top: 0.2rem;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 640px) {
+    .category-item {
+        flex-wrap: wrap;
+        padding: 1rem;
+        gap: 0.5rem;
+    }
+
+    .category-name,
+    .transaction-info {
+        flex: 1 1 100%;
+        margin: 0.5rem 0 !important;
+    }
+
+    .category-type {
+        margin-left: auto;
+    }
+
+    .category-button {
+        padding: 0.5rem;
+        margin-right: 0.5rem;
+    }
+}
